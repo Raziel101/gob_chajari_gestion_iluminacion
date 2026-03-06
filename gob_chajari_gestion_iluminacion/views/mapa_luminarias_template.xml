@@ -1,0 +1,45 @@
+<odoo>
+
+    <template id="mapa_luminarias_template" name="Mapa de Luminarias">
+
+    <t t-call="web.layout">
+
+    <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <div class="container mt-4">
+        <h2>Mapa de Luminarias</h2>
+
+        <div id="map" style="height:600px;"></div>
+    </div>
+
+    <script>
+
+    var map = L.map('map').setView([-30.750, -57.983], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    var luminarias = <t t-raw="luminarias_json"/>;
+
+    luminarias.forEach(function(l){
+
+        L.marker([l.lat, l.lng])
+        .addTo(map)
+        .bindPopup(
+            "<b>" + l.name + "</b><br/>" +
+            l.direccion
+        );
+
+    });
+
+    </script>
+
+    </t>
+
+    </template>
+
+</odoo>

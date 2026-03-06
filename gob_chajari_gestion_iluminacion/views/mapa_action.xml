@@ -1,0 +1,7 @@
+<odoo>
+    <record id="action_mapa_luminarias" model="ir.actions.act_url">
+        <field name="name">Mapa de Luminarias</field>
+        <field name="url">/mapa/luminarias</field>
+        <field name="target">self</field>
+    </record>
+</odoo>

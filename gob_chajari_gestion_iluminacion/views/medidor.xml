@@ -1,0 +1,49 @@
+<odoo>
+    <!-- ACCION MEDIDORES -->
+    <record id="action_medidores" model="ir.actions.act_window">
+        <field name="name">Medidores</field>
+        <field name="res_model">gob_chajari_gestion_iluminacion.medidor</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- TREE MEDIDORES -->
+    <record id="view_medidor_tree" model="ir.ui.view">
+        <field name="name">medidor.tree</field>
+        <field name="model">gob_chajari_gestion_iluminacion.medidor</field>
+        <field name="arch" type="xml">
+            <list string="Medidores">
+                <field name="name"/>
+                <!--<field name="cantidad_luminarias"/>-->
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM MEDIDORES -->
+    <record id="view_medidor_form" model="ir.ui.view">
+        <field name="name">medidor.form</field>
+        <field name="model">gob_chajari_gestion_iluminacion.medidor</field>
+        <field name="arch" type="xml">
+            <form string="Medidor">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="cantidad_luminarias" readonly="1"/>
+                    </group>
+
+                    <field name="luminaria_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="direccion"/>
+                            <field name="barrio"/>
+                        </list>
+                    </field>
+                    <!-- CHATTER -->
+                    <div class="oe_chatter">
+                        <!--<field name="message_follower_ids"/>-->
+                        <field name="message_ids"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

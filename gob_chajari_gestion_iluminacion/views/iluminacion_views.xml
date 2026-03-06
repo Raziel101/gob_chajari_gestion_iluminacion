@@ -1,0 +1,86 @@
+<odoo>
+    <!-- ACCION LUMINARIAS -->
+    <record id="action_luminarias" model="ir.actions.act_window">
+        <field name="name">Luminarias</field>
+        <field name="res_model">gob_chajari_gestion_iluminacion.luminaria</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- TREE LUMINARIAS -->
+    <record id="view_luminaria_tree" model="ir.ui.view">
+        <field name="name">luminaria.tree</field>
+        <field name="model">gob_chajari_gestion_iluminacion.luminaria</field>
+        <field name="arch" type="xml">
+            <list string="Luminarias">
+                <field name="name"/>
+                <field name="tipo_luminaria"/>
+                <field name="direccion"/>
+                <field name="barrio"/>
+                <field name="estado_base"/>
+                <field name="medidor_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM LUMINARIAS -->
+    <record id="view_luminaria_form" model="ir.ui.view">
+        <field name="name">luminaria.form</field>
+        <field name="model">gob_chajari_gestion_iluminacion.luminaria</field>
+        <field name="arch" type="xml">
+            <form string="Luminaria">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="medidor_id"/>
+                    </group>
+
+                    <notebook>
+
+                        <!-- NOTEBOOK 1 -->
+                        <page string="Datos Generales">
+                            <group>
+                                <field name="tipo_luminaria"/>
+                                <field name="direccion"/>
+                                <field name="barrio"/>
+                                <field name="tipo_cableado"/>
+                                <field name="tipologia"/>
+                                <field name="estado_base"/>
+                                <field name="observacion"/>
+                            </group>
+                        </page>
+
+                        <!-- NOTEBOOK 2 -->
+                        <page string="Mantenimiento">
+                            <group>
+                                <field name="numero_recambios"/>
+                            </group>
+                            <field name="mantenimiento_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="fecha"/>
+                                    <field name="descripcion"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- GEOLOCALIZACION -->
+                        <page string="Ubicación">
+                            <group>
+                                <field name="latitud"/>
+                                <field name="longitud"/>
+                            </group>
+                            <div id="map_luminaria" style="height:400px;width:100%;margin-top:10px;"></div>
+                        </page>
+
+                    </notebook>
+
+                    <!-- CHATTER -->
+                    <div class="oe_chatter">
+                        <!--<field name="message_follower_ids"/>-->
+                        <field name="message_ids"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

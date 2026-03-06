@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Menú raíz -->
+    <menuitem
+        id="menu_gestion_iluminacion_root"
+        name="Gestión Iluminación"
+        sequence="4"
+        groups="base.group_user"/>
+
+    <!-- LUMINARIAS -->
+    <menuitem
+        id="menu_luminarias"
+        name="Luminarias"
+        parent="menu_gestion_iluminacion_root"
+        action="action_luminarias"
+        sequence="1"
+        groups="base.group_user"/>
+
+    <!-- MEDIDORES -->
+    <menuitem
+        id="menu_medidores"
+        name="Medidores"
+        parent="menu_gestion_iluminacion_root"
+        action="action_medidores"
+        sequence="2"
+        groups="base.group_user"/>
+
+    <menuitem
+        id="menu_mapa_luminarias"
+        name="Mapa de Luminarias"
+        parent="menu_gestion_iluminacion_root"
+        action="action_mapa_luminarias"
+        sequence="3"/>
+
+</odoo>

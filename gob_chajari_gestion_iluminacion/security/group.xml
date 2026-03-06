@@ -1,0 +1,20 @@
+<odoo>
+
+    <!-- GRUPO SOLO LECTURA -->
+    <record id="group_iluminacion_readonly" model="res.groups">
+        <field name="name">Iluminación - Solo Lectura</field>
+    </record>
+
+    <!-- GRUPO USUARIO INTERNO -->
+    <record id="group_iluminacion_user" model="res.groups">
+        <field name="name">Iluminación - Usuario</field>
+        <field name="implied_ids" eval="[(4, ref('group_iluminacion_readonly'))]"/>
+    </record>
+
+    <!-- GRUPO ADMINISTRADOR -->
+    <record id="group_iluminacion_admin" model="res.groups">
+        <field name="name">Iluminación - Administrador</field>
+        <field name="implied_ids" eval="[(4, ref('group_iluminacion_user'))]"/>
+    </record>
+
+</odoo>
