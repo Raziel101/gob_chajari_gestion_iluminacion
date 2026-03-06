@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVP Gestión de Iluminación - Chajarí</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --primary-color: #004a8d;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ffc107;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: var(--secondary-color);
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #map {
+            flex: 1;
+            width: 100%;
+        }
+        .controls {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: #333;
+        }
+        #info-panel {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            max-width: 250px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MVP Gestión de Iluminación - Chajarí</h1>
+</header>
+
+<div id="map"></div>
+
+<div id="info-panel">
+    <h3>Nueva Luminaria</h3>
+    <p id="coords-display">Lat: - , Lng: -</p>
+    <button class="btn btn-accent" onclick="savePoint()">Guardar Punto</button>
+</div>
+
+<div class="controls">
+    <span><b>Modo:</b> Visualización de Puntos</span>
+    <button class="btn" onclick="toggleAddMode()" id="mode-btn">Activar Levantamiento de Puntos</button>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // Inicialización del mapa (Coordenadas de Chajarí aprox)
+    var map = L.map('map').setView([-30.750, -57.983], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var markers = [];
+    var addMode = false;
+    var tempMarker = null;
+
+    // Simulación de datos existentes de Odoo
+    var mockLuminarias = [
+        { name: "Lum 001", lat: -30.751, lng: -57.985, direccion: "Av. Belgrano y Urquiza" },
+        { name: "Lum 002", lat: -30.748, lng: -57.980, direccion: "Sarmiento 1234" }
+    ];
+
+    mockLuminarias.forEach(function(l) {
+        L.marker([l.lat, l.lng])
+            .addTo(map)
+            .bindPopup("<b>" + l.name + "</b><br>" + l.direccion);
+    });
+
+    function toggleAddMode() {
+        addMode = !addMode;
+        var btn = document.getElementById('mode-btn');
+        if (addMode) {
+            btn.innerHTML = "Desactivar Levantamiento";
+            btn.style.backgroundColor = "#dc3545";
+            map.getContainer().style.cursor = "crosshair";
+            alert("Haz clic en el mapa para marcar una nueva luminaria.");
+        } else {
+            btn.innerHTML = "Activar Levantamiento de Puntos";
+            btn.style.backgroundColor = "#004a8d";
+            map.getContainer().style.cursor = "";
+            if (tempMarker) map.removeLayer(tempMarker);
+            document.getElementById('info-panel').style.display = 'none';
+        }
+    }
+
+    map.on('click', function(e) {
+        if (!addMode) return;
+
+        if (tempMarker) map.removeLayer(tempMarker);
+
+        tempMarker = L.marker(e.latlng, { draggable: true }).addTo(map);
+        
+        document.getElementById('info-panel').style.display = 'block';
+        document.getElementById('coords-display').innerText = 
+            "Lat: " + e.latlng.lat.toFixed(6) + "\nLng: " + e.latlng.lng.toFixed(6);
+
+        tempMarker.on('dragend', function(event) {
+            var marker = event.target;
+            var position = marker.getLatLng();
+            document.getElementById('coords-display').innerText = 
+                "Lat: " + position.lat.toFixed(6) + "\nLng: " + position.lng.toFixed(6);
+        });
+    });
+
+    function savePoint() {
+        var pos = tempMarker.getLatLng();
+        alert("Punto guardado localmente.\nLat: " + pos.lat + "\nLng: " + pos.lng + "\n\nEste punto se inyectará en Odoo en la versión final.");
+        
+        // Simular guardado
+        L.marker(pos, { 
+            icon: L.icon({ 
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', 
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41], 
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            }) 
+        })
+        .addTo(map)
+        .bindPopup("<b>Nuevo Punto Registrado</b>");
+            
+        map.removeLayer(tempMarker);
+        tempMarker = null;
+        document.getElementById('info-panel').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

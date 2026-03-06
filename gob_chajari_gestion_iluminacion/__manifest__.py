@@ -16,9 +16,10 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'gob_chajari_gestion_iluminacion/static/src/js/mapa_luminaria.js',
-            'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-            'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+             'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+             'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+             'gob_chajari_gestion_iluminacion/static/src/js/mapa_luminaria.js',
+             'gob_chajari_gestion_iluminacion/static/src/xml/map_widget_template.xml',
         ],
     },
     'installable': True,
