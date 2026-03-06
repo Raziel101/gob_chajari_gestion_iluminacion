@@ -23,9 +23,9 @@
 
                 try {
                     var luminarias = <t t-out="luminarias_json"/>;
-                    if (luminarias && luminarias.length > 0) {
+                    if (luminarias &amp;&amp; luminarias.length > 0) {
                         luminarias.forEach(function(l){
-                            if (l.lat && l.lng) {
+                            if (l.lat &amp;&amp; l.lng) {
                                 L.marker([l.lat, l.lng])
                                 .addTo(map)
                                 .bindPopup(
