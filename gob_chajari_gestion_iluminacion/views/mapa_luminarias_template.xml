@@ -11,6 +11,8 @@
         <div class="container mt-4">
             <h2>Mapa de Luminarias Chajarí</h2>
             <div id="map" style="height:600px; width:100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+            <!-- Guardar datos JSON en un atributo data -->
+            <div id="luminarias-data" t-att-data-luminarias="luminarias_json" style="display:none;"></div>
         </div>
 
         <script>
@@ -22,22 +24,24 @@
                 }).addTo(map);
 
                 try {
-                    var luminarias = <t t-out="luminarias_json"/>;
-                    if (luminarias &amp;&amp; luminarias.length > 0) {
+                    // Leer datos del atributo data
+                    var dataElement = document.getElementById('luminarias-data');
+                    var luminarias = [];
+                    if (dataElement &amp;&amp; dataElement.getAttribute('data-luminarias')) {
+                        luminarias = JSON.parse(dataElement.getAttribute('data-luminarias'));
+                    }
+
+                    if (luminarias &amp;&amp; luminarias.length &gt; 0) {
                         luminarias.forEach(function(l){
                             if (l.lat &amp;&amp; l.lng) {
                                 L.marker([l.lat, l.lng])
                                 .addTo(map)
                                 .bindPopup(
-                                    "<b>" + (l.name || 'Sin nombre') + "</b><br/>" +
+                                    "&lt;b&gt;" + (l.name || 'Sin nombre') + "&lt;/b&gt;&lt;br/&gt;" +
                                     (l.direccion || '')
                                 );
                             }
                         });
-                        
-                        // Opcional: Ajustar el mapa para mostrar todos los marcadores
-                        var group = new L.featureGroup(luminarias.map(l => L.marker([l.lat, l.lng])));
-                        map.fitBounds(group.getBounds());
                     }
                 } catch (e) {
                     console.error("Error cargando luminarias:", e);

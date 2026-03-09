@@ -57,4 +57,6 @@ export class LuminariaMap extends Component {
     }
 }
 
-registry.category("view_widgets").add("luminaria_map", LuminariaMap);
+registry.category("view_widgets").add("luminaria_map", {
+    component: LuminariaMap,
+});
