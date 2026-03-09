@@ -4,6 +4,7 @@
     <menuitem
         id="menu_gestion_iluminacion_root"
         name="Gestión Iluminación"
+        action="action_luminarias"
         sequence="4"
         groups="base.group_user"/>
 

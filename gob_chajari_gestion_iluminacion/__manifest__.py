@@ -9,16 +9,18 @@
         'security/ir.model.access.csv',
         'views/iluminacion_views.xml',
         'views/medidor.xml',
+        'views/iluminacion_menu.xml',
         'views/mapa_action.xml',
         'views/mapa_luminarias_template.xml',
-        'views/iluminacion_menu.xml',
+
 
     ],
     'assets': {
         'web.assets_backend': [
-            'gob_chajari_gestion_iluminacion/static/src/js/mapa_luminaria.js',
-            'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-            'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+             'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+             'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+             'gob_chajari_gestion_iluminacion/static/src/js/mapa_luminaria.js',
+             'gob_chajari_gestion_iluminacion/static/src/xml/map_widget_template.xml',
         ],
     },
     'installable': True,

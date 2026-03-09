@@ -69,7 +69,7 @@
                                 <field name="latitud"/>
                                 <field name="longitud"/>
                             </group>
-                            <div id="map_luminaria" style="height:400px;width:100%;margin-top:10px;"></div>
+                            <widget name="luminaria_map"/>
                         </page>
 
                     </notebook>

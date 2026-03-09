@@ -3,41 +3,51 @@
     <template id="mapa_luminarias_template" name="Mapa de Luminarias">
 
     <t t-call="web.layout">
+        <t t-set="head">
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        </t>
 
-    <link rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+        <div class="container mt-4">
+            <h2>Mapa de Luminarias Chajarí</h2>
+            <div id="map" style="height:600px; width:100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+            <!-- Guardar datos JSON en un atributo data -->
+            <div id="luminarias-data" t-att-data-luminarias="luminarias_json" style="display:none;"></div>
+        </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var map = L.map('map').setView([-30.750, -57.983], 13);
 
-    <div class="container mt-4">
-        <h2>Mapa de Luminarias</h2>
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(map);
 
-        <div id="map" style="height:600px;"></div>
-    </div>
+                try {
+                    // Leer datos del atributo data
+                    var dataElement = document.getElementById('luminarias-data');
+                    var luminarias = [];
+                    if (dataElement &amp;&amp; dataElement.getAttribute('data-luminarias')) {
+                        luminarias = JSON.parse(dataElement.getAttribute('data-luminarias'));
+                    }
 
-    <script>
-
-    var map = L.map('map').setView([-30.750, -57.983], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-
-    var luminarias = <t t-raw="luminarias_json"/>;
-
-    luminarias.forEach(function(l){
-
-        L.marker([l.lat, l.lng])
-        .addTo(map)
-        .bindPopup(
-            "<b>" + l.name + "</b><br/>" +
-            l.direccion
-        );
-
-    });
-
-    </script>
-
+                    if (luminarias &amp;&amp; luminarias.length &gt; 0) {
+                        luminarias.forEach(function(l){
+                            if (l.lat &amp;&amp; l.lng) {
+                                L.marker([l.lat, l.lng])
+                                .addTo(map)
+                                .bindPopup(
+                                    "&lt;b&gt;" + (l.name || 'Sin nombre') + "&lt;/b&gt;&lt;br/&gt;" +
+                                    (l.direccion || '')
+                                );
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error("Error cargando luminarias:", e);
+                }
+            });
+        </script>
     </t>
 
     </template>
