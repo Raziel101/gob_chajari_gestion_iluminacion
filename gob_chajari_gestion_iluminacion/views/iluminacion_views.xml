@@ -13,6 +13,7 @@
         <field name="arch" type="xml">
             <list string="Luminarias">
                 <field name="name"/>
+                <field name="sin_luz"/>
                 <field name="tipo_luminaria"/>
                 <field name="direccion"/>
                 <field name="barrio"/>
@@ -40,6 +41,7 @@
                         <page string="Datos Generales">
                             <group>
                                 <field name="tipo_luminaria"/>
+                                <field name="sin_luz" string="Apagada/Encendida"/>
                                 <field name="direccion"/>
                                 <field name="barrio"/>
                                 <field name="tipo_cableado"/>
@@ -53,6 +55,8 @@
                         <page string="Mantenimiento">
                             <group>
                                 <field name="numero_recambios"/>
+                                <field name="fecha_compra_foco" string="Fecha de Compra"/>
+                                <field name="vencimiento_garantia_foco" string="Vencimiento de garantía"/>
                             </group>
                             <field name="mantenimiento_ids">
                                 <list editable="bottom">

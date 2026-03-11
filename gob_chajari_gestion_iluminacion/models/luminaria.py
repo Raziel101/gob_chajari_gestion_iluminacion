@@ -7,9 +7,13 @@ class Luminaria(models.Model):
 
     name = fields.Char(string="ID Luminaria", tracking=True)
 
+    sin_luz = fields.Boolean(String="Sin Luz", tracking=True)
+
     tipo_luminaria = fields.Selection([
-        ('led', 'Led'),
-        ('sodio', 'Sodio'),
+        ('led 40w', 'LED 40W'),
+        ('led 50w', 'LED 50W'),
+        ('led 150w', 'LED 150W'),
+        ('led 180w', 'LED 180W'),
     ], string="Tipo Luminaria", tracking=True)
 
     direccion = fields.Char(string="Dirección", tracking=True)
@@ -33,6 +37,11 @@ class Luminaria(models.Model):
     ], string="Estado de la base", tracking=True)
 
     numero_recambios = fields.Char(string="Número de recambios", tracking=True)
+
+    fecha_compra_foco = fields.Date(String="Fecha de Compra", tracking=True)
+
+    vencimiento_garantia_foco = fields.Date(String="Vencimiento de garantía", tracking=True)
+
     observacion = fields.Text(string="Observación", tracking=True)
 
     mantenimiento_ids = fields.One2many(
