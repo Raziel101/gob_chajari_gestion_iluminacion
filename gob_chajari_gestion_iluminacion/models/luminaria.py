@@ -10,6 +10,7 @@ class Luminaria(models.Model):
     sin_luz = fields.Boolean(String="Sin Luz", tracking=True)
 
     tipo_luminaria = fields.Selection([
+        ('sodio','Sodio'),
         ('led 40w', 'LED 40W'),
         ('led 50w', 'LED 50W'),
         ('led 150w', 'LED 150W'),
