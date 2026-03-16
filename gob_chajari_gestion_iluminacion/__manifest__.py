@@ -9,8 +9,8 @@
         'security/ir.model.access.csv',
         'views/iluminacion_views.xml',
         'views/medidor.xml',
-        'views/iluminacion_menu.xml',
         'views/mapa_action.xml',
+        'views/iluminacion_menu.xml',
         'views/mapa_luminarias_template.xml',
 
 
