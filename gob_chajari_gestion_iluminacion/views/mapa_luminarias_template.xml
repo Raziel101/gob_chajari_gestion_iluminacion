@@ -2,7 +2,7 @@
 
     <template id="mapa_luminarias_template" name="Mapa de Luminarias">
 
-    <t t-call="web.layout">
+    <t t-call="website.layout">
         <t t-set="head">
             <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
