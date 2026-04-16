@@ -30,7 +30,7 @@
         id="menu_mapa_luminarias"
         name="Mapa de Luminarias"
         parent="menu_gestion_iluminacion_root"
-        action="gob_chajari_gestion_iluminacion.action_mapa_luminarias"
+        action="action_mapa_luminarias"
         sequence="3"/>
 
 </odoo>

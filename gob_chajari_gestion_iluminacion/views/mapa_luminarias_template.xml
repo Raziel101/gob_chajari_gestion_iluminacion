@@ -2,15 +2,21 @@
 
     <template id="mapa_luminarias_template" name="Mapa de Luminarias">
 
-    <t t-call="website.layout">
+    <t t-call="web.layout">
         <t t-set="head">
             <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         </t>
 
         <div class="container mt-4">
-            <h2>Mapa de Luminarias Chajarí</h2>
-            <div id="map" style="height:600px; width:100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+             <div style="display: flex; align-items: center; gap: 10px; margin-top: 20px;">
+                    <img src="/gob_chaja_gestion_espacios_verdes/static/src/img/logo-chajari.png"
+                         alt="Logo"
+                         style="height: 40px; display: block;"/>
+
+                    <h2 style="margin: 0;">Mapa de Luminarias - Chajarí</h2>
+                </div>
+            <div id="map" style="margin-top: 20px; height:600px; width:100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
             <!-- Guardar datos JSON en un atributo data -->
             <div id="luminarias-data" t-att-data-luminarias="luminarias_json" style="display:none;"></div>
         </div>
